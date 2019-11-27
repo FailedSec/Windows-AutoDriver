@@ -10,12 +10,15 @@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 # @  [[Global Variables]]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
-$GlobalCPUModel
+$GlobalHostname            # 
+$GlobalCPUModel            # 
+# -------------------------------------------------------- #
 $AppBaseDir = "C:\Temp\WindowsAutoDriver"
 $LogFile = "C:\Temp\WindowsAutoDriver\Log\Diagnostics.log"
 $LogDirectory = "C:\Temp\WindowsAutoDriver\Log"
-
-# @@@@#@@@@@@@@@@@@@@@@@@@@@@
+# -------------------------------------------------------- #
+#                             /                           /
+# @@@@#@@@@@@@@@@@@@@@@@@@@@@ ---------------------------/
 # @      [Log Checker]      @
 # @@@@@#@@@@@@@@@@@@@@@@@@@@@
 function LogChecker() {
@@ -42,7 +45,7 @@ function DoModelQuery() {
 $ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem|select Model
 $ModelQueryOutput = $ModelQuery|Select-String -NotMatch "-----"
 $GlobalCPUModel = $ModelQueryOutput -split ("@{Model=") -split ("}")
-Add-Content -Path $AppBaseDir\Log\Diag.log $GlobalCPUModel
+Add-Content -Path $AppBaseDir\Log\Diag.log -value $GlobalCPUModel
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -93,3 +96,4 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
 MenuBanner
 FirstTimeRunCheck
 LogChecker
+DoModelQuery
