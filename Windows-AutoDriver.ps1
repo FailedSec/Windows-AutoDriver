@@ -19,11 +19,19 @@ $LogDirectory = "C:\Temp\WindowsAutoDriver\Log"
 # @      [Log Checker]      @
 # @@@@@#@@@@@@@@@@@@@@@@@@@@@
 function LogChecker() {
-if ([System.IO.File]::Exists($LogFile) -eq "False") {
-    Write-Output "[Log Checker]: "
-    Write-Output "The log file is not present, creating directory now."
-    New-Item -Path $AppBaseDir -ItemType Directory -ErrorAction Stop | Out-Null #-Force
-    Write-Output ""
+if ([System.IO.File]::Exists($LogDirectory) -ne "True") {
+    try {
+        Write-Host "[Log Checker Status]: "
+        Write-Host "Log file directory not present, creating directory now.."
+        New-Item -Path $LogDirectory -ItemType Directory -ErrorAction Stop | Out-Null #-Force
+    }
+    catch {
+        Write-Error -Message "Unable to create Log file directory '$LogDirectory'. Error was: $_" -ErrorAction Stop
+        Write-Host "Please ensure that you have emptied out the entire directory and then  re-run the script."
+        Write-Host ""
+    }
+    Write-Host "Successfully created directory '$LogDirectory'."
+    Write-Host ""
     }
 }
 
@@ -68,7 +76,6 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
         Write-Host "[Run Status]: "
         Write-Host "Windows AutoDriver directory not found, creating Application folder now.."
         New-Item -Path $AppBaseDir -ItemType Directory -ErrorAction Stop | Out-Null #-Force
-        Write-Host ""
     }
     catch {
         Write-Error -Message "Unable to create Application directory '$AppBaseDir'. Error was: $_" -ErrorAction Stop
@@ -76,11 +83,13 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
         Write-Host ""
     }
     "Successfully created directory '$AppBaseDir'."
+    Write-Host ""
     }
-}
+   }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @   Main Crap Goes Here   @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 MenuBanner
+FirstTimeRunCheck
 LogChecker
