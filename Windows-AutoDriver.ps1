@@ -79,14 +79,18 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
         Write-Host "[Run Status]: "
         Write-Host "Windows AutoDriver directory not found, creating Application folder now.."
         New-Item -Path $AppBaseDir -ItemType Directory -ErrorAction Stop | Out-Null #-Force
+        LogChecker
+        Sleep -Seconds 1
     }
     catch {
         Write-Error -Message "Unable to create Application directory '$AppBaseDir'. Error was: $_" -ErrorAction Stop
         Write-Host "Please ensure that you have emptied out the entire directory and then  re-run the script."
         Write-Host ""
+        Sleep -Seconds 1
     }
     "Successfully created directory '$AppBaseDir'."
     Write-Host ""
+    Sleep -Seconds 1
     }
    }
 
@@ -95,5 +99,5 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 MenuBanner
 FirstTimeRunCheck
-LogChecker
+Sleep -Seconds 1
 DoModelQuery
