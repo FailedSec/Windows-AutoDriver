@@ -2,11 +2,30 @@
 # Created by: blahkat
 #  [FailedSec][2019]
 
+# Objectives : Temp
+# -- Establish details about computer model
+# --- Match details to official driver site or local repo store
+# ---- Deploy drivers necessary.
+
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 # @  [[Global Variables]]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 $GlobalCPUModel
 $AppBaseDir = "C:\Temp\WindowsAutoDriver"
+$LogFile = "C:\Temp\WindowsAutoDriver\Log\Diagnostics.log"
+$LogDirectory = "C:\Temp\WindowsAutoDriver\Log"
+
+# @@@@#@@@@@@@@@@@@@@@@@@@@@@
+# @      [Log Checker]      @
+# @@@@@#@@@@@@@@@@@@@@@@@@@@@
+function LogChecker() {
+if ([System.IO.File]::Exists($LogFile) -eq "False") {
+    Write-Output "[Log Checker]: "
+    Write-Output "The log file is not present, creating directory now."
+    New-Item -Path $AppBaseDir -ItemType Directory -ErrorAction Stop | Out-Null #-Force
+    Write-Output ""
+    }
+}
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 # @  [Query for PC Model]  @
@@ -14,7 +33,8 @@ $AppBaseDir = "C:\Temp\WindowsAutoDriver"
 function DoModelQuery() {
 $ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem|select Model
 $ModelQueryOutput = $ModelQuery|Select-String -NotMatch "-----"
-$ModelQueryOutput -split ("@{Model=") -split ("}")
+$GlobalCPUModel = $ModelQueryOutput -split ("@{Model=") -split ("}")
+Add-Content -Path $AppBaseDir\Log\Diag.log $GlobalCPUModel
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -63,4 +83,4 @@ if (-not (Test-Path -LiteralPath $AppBaseDir)) {
 # @   Main Crap Goes Here   @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 MenuBanner
-DoModelQuery
+LogChecker
