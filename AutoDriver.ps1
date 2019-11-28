@@ -42,8 +42,8 @@ if ([System.IO.File]::Exists($LogDirectory) -ne "True") {
 # @  [Query for PC Model]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 function DoModelQuery() {
-$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem | select -ExpandProperty Model # Thanks KevinBlumenfeld!
-$GlobalCPUModel = $ModelQuery
+$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem | select -ExpandProperty Model # Thanks Kevinlumenfeld!
+$GlobalCPUModel = "Model: " + $ModelQuery
 Add-Content -Path $AppBaseDir\Log\Diag.log -value $GlobalCPUModel
 }
 
@@ -79,6 +79,13 @@ function DriverRepoChecker() {
 # @  [Driver Status Query]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+function DriverStatusQuery() {
+    $QueryStatus = Get-WmiObject Win32_PNPEntity | where {$_.status -ne ""} | ft pnpclass,name,status -AutoSize
+    if ($TestArray -notcontains "Failed") 
+        { Write-Host "[Driver Check Status]: "
+          Write-Host "OK - No unknown devices found!"
+         }
+}
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @ First Time Run Function @
@@ -114,3 +121,4 @@ MenuBanner
 FirstTimeRunCheck
 Sleep -Seconds 1
 DoModelQuery
+DriverStatusQuery
