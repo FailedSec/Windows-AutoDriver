@@ -1,8 +1,11 @@
 # Windows AutoDriver
 # Created by: blahkat
 #  [FailedSec][2019]
-
-# Objectives : Temp
+#
+# Sometimes I doodle with comments when I think, deal with it
+# ¯\_(ツ)_/¯
+#    | |
+# Objectives :
 # -- Establish details about computer model
 # --- Match details to official driver site or local repo store
 # ---- Deploy drivers necessary.
@@ -17,7 +20,7 @@ $AppBaseDir = "C:\Temp\WindowsAutoDriver"
 $LogFile = "C:\Temp\WindowsAutoDriver\Log\Diagnostics.log"
 $LogDirectory = "C:\Temp\WindowsAutoDriver\Log"
 # -------------------------------------------------------- #
-#                             /                           /
+#                             /@@@@@@@@@@@@@@@@@@@@@@@@@@@/
 # @@@@#@@@@@@@@@@@@@@@@@@@@@@ ---------------------------/
 # @      [Log Checker]      @
 # @@@@@#@@@@@@@@@@@@@@@@@@@@@
