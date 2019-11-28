@@ -1,4 +1,4 @@
-﻿# Windows AutoDriver
+# Windows AutoDriver
 # Created by: blahkat
 #  [FailedSec][2019]
 
@@ -42,9 +42,8 @@ if ([System.IO.File]::Exists($LogDirectory) -ne "True") {
 # @  [Query for PC Model]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 function DoModelQuery() {
-$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem|select Model
-$ModelQueryOutput = $ModelQuery|Select-String -NotMatch "-----"
-$GlobalCPUModel = "Model: " + $ModelQueryOutput -split ("@{Model=") -split ("}")
+$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem | select -ExpandProperty Model # Thanks KevinBlumenfeld!
+$GlobalCPUModel = $ModelQuery
 Add-Content -Path $AppBaseDir\Log\Diag.log -value $GlobalCPUModel
 }
 
@@ -75,6 +74,11 @@ function MenuBanner() {
 function DriverRepoChecker() { 
     Write-Host "Do something here"
 }
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @  [Driver Status Query]  @
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @ First Time Run Function @
