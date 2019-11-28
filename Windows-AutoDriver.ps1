@@ -44,9 +44,10 @@ if ([System.IO.File]::Exists($LogDirectory) -ne "True") {
 function DoModelQuery() {
 $ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem|select Model
 $ModelQueryOutput = $ModelQuery|Select-String -NotMatch "-----"
-$GlobalCPUModel = $ModelQueryOutput -split ("@{Model=") -split ("}")
+$GlobalCPUModel = "Model: " + $ModelQueryOutput -split ("@{Model=") -split ("}")
 Add-Content -Path $AppBaseDir\Log\Diag.log -value $GlobalCPUModel
 }
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 # @  Main Banner Thing...  @
@@ -65,6 +66,14 @@ function MenuBanner() {
  Write-Host "||              [Windows AutoDriver]              || "
  Write-Host "||------------------------------------------------|| "
  Write-Host "" # Spacer, because I wanna...
+}
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @  [Driver Repo Checker]  @
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+function DriverRepoChecker() { 
+    Write-Host "Do something here"
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
