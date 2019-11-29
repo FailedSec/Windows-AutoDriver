@@ -101,6 +101,7 @@ function DriverStatusQuery() {
                   Write-Host "Moving forward with driver exploration..."
                   #   [TODO] [PC Model / Driver Repo Matchup Function]
                   DriverMatchRepoScan
+                  }
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
