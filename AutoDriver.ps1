@@ -45,7 +45,7 @@ if ([System.IO.File]::Exists($LogDirectory) -ne "True") {
 # @  [Query for PC Model]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@
 function DoModelQuery() {
-$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem | select -ExpandProperty Model # Thanks Kevinlumenfeld!
+$ModelQuery = Get-CimInstance -ClassName Win32_ComputerSystem | select -ExpandProperty Model # Thanks Kb!
 $GlobalCPUModel = "Model: " + $ModelQuery
 Add-Content -Path $AppBaseDir\Log\Diag.log -value $GlobalCPUModel
 }
@@ -79,6 +79,15 @@ function DriverRepoChecker() {
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @  [Driver Matchup Func]  @
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+function DriverMatchRepoScan() { 
+    Write-Host "Imma ghost ghost ghost.."
+    Write-Host "Todo : Function stuff..."
+}
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @  [Driver Status Query]  @
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
@@ -87,7 +96,11 @@ function DriverStatusQuery() {
     if ($TestArray -notcontains "Failed") 
         { Write-Host "[Driver Check Status]: "
           Write-Host "OK - No unknown devices found!"
-         }
+         } else {
+                  Write-Host "Unknown Devices Found.."
+                  Write-Host "Moving forward with driver exploration..."
+                  #   [TODO] [PC Model / Driver Repo Matchup Function]
+                  DriverMatchRepoScan
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
