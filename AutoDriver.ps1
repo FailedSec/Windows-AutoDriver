@@ -5,6 +5,8 @@
 # Sometimes I doodle with comments when I think, deal with it
 # ¯\_(ツ)_/¯
 #    | |
+#    | |
+#   //¯\\
 # Objectives :
 # -- Establish details about computer model
 # --- Match details to official driver site or local repo store
@@ -17,7 +19,7 @@ $GlobalHostname            #
 $GlobalCPUModel            # 
 # -------------------------------------------------------- #
 $AppBaseDir = "C:\Temp\WindowsAutoDriver"
-$LogFile = "C:\Temp\WindowsAutoDriver\Log\Diagnostics.log"
+$LogFile = "C:\Temp\WindowsAutoDriver\Log\Diag.log"
 $LogDirectory = "C:\Temp\WindowsAutoDriver\Log"
 # -------------------------------------------------------- #
 #                             /@@@@@@@@@@@@@@@@@@@@@@@@@@@/
@@ -83,8 +85,10 @@ function DriverRepoChecker() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 function DriverMatchRepoScan() { 
-    Write-Host "Imma ghost ghost ghost.."
-    Write-Host "Todo : Function stuff..."
+    # Gather list of devices that need drivers
+    Write-Host "[Driver Match Status]: "
+    Write-Host "Todo : Gather devices needing drivers..."
+    Write-Host "Todo : Match devices to driver install packages and deploy silently."
 }
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -100,6 +104,7 @@ function DriverStatusQuery() {
          } else {
                   Write-Host "Unknown Devices Found.."
                   Write-Host "Moving forward with driver exploration..."
+                  #   [TODO] [Grab device information for missing device]
                   #   [TODO] [PC Model / Driver Repo Matchup Function]
                   DriverMatchRepoScan
                   }
