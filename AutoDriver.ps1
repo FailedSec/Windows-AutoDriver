@@ -92,8 +92,9 @@ function DriverMatchRepoScan() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 function DriverStatusQuery() {
+    # $QueryStatus = Get-WmiObject Win32_PNPEntity | where {$_.status -ne ""} | ft pnpclass,name,status -AutoSize
     $QueryStatus = Get-WmiObject Win32_PNPEntity | where {$_.status -ne ""} | ft pnpclass,name,status -AutoSize
-    if ($TestArray -notcontains "Failed") 
+    if ($QueryStatus -contains "Error") 
         { Write-Host "[Driver Check Status]: "
           Write-Host "OK - No unknown devices found!"
          } else {
