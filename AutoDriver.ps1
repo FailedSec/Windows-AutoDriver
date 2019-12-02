@@ -103,8 +103,10 @@ function DriverStatusQuery() {
         { Write-Host "[Driver Check Status]: "
           Write-Host "OK - No unknown devices found!"
          } else {
+                  Write-Host "[Driver Check Status]: "
                   Write-Host "Unknown Devices Found.."
                   Write-Host "Moving forward with driver exploration..."
+                  Write-Host " "
                   #   [TODO] [Grab device information for missing device]
                   #   [TODO] [PC Model / Driver Repo Matchup Function]
                   DriverMatchRepoScan
